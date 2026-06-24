@@ -23,6 +23,11 @@ function canCastSpell(isSpellPrepared, hasScroll) {
  */
 function isHidden(hiding, aware) {
   // TODO
+  if (hiding || !aware) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 /**
