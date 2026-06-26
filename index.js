@@ -7,11 +7,7 @@
  */
 function canCastSpell(isSpellPrepared, hasScroll) {
   // TODO
-  if (isSpellPrepared || hasScroll) {
-    return true;
-  } else {
-    return false;
-  }
+  return isSpellPrepared || hasScroll;
 }
 
 /**
@@ -23,11 +19,7 @@ function canCastSpell(isSpellPrepared, hasScroll) {
  */
 function isHidden(hiding, aware) {
   // TODO
-  if (hiding || !aware) {
-    return true;
-  } else {
-    return false;
-  }
+  return hiding || !aware;
 }
 
 /**
@@ -39,6 +31,7 @@ function isHidden(hiding, aware) {
  */
 function doesStrikeHit(attack, ac) {
   // TODO
+  return attack >= ac;
 }
 
 /**
@@ -50,6 +43,7 @@ function doesStrikeHit(attack, ac) {
  */
 function doesStrikeCrit(attack, ac) {
   // TODO
+  return attack >= ac + 10;
 }
 
 /**
@@ -62,6 +56,11 @@ function doesStrikeCrit(attack, ac) {
  */
 function heal(maxHp, currentHp, healAmount) {
   // TODO
+  if (maxHp < currentHp + healAmount) {
+    return maxHp;
+  } else {
+    return currentHp + healAmount;
+  }
 }
 
 /**
@@ -82,6 +81,17 @@ function heal(maxHp, currentHp, healAmount) {
  */
 function getProficiencyBonus(level, rank) {
   // TODO
+  if (rank === "legendary") {
+    return level + 8;
+  } else if (rank === "master") {
+    return level + 6;
+  } else if (rank === "expert") {
+    return level + 4;
+  } else if (rank === "trained") {
+    return level + 2;
+  } else {
+    return level;
+  }
 }
 
 /**
@@ -96,6 +106,13 @@ function getProficiencyBonus(level, rank) {
  */
 function getCoverBonus(behindObstacle, takingCover) {
   // TODO
+  if (!behindObstacle) {
+    return 0;
+  } else if (takingCover) {
+    return 4;
+  } else {
+    return 2;
+  }
 }
 
 /**
@@ -112,6 +129,16 @@ function getCoverBonus(behindObstacle, takingCover) {
  */
 function getRemainingHp(maxHp, currentHp, damage) {
   // TODO
+
+  const hp = currentHp - damage;
+
+  if (damage >= 2 * maxHp) {
+    return -1;
+  } else if (hp <= 0) {
+    return 0;
+  } else {
+    return hp;
+  }
 }
 
 /**
@@ -124,6 +151,15 @@ function getRemainingHp(maxHp, currentHp, damage) {
  */
 function canSee(light, vision) {
   // TODO
+  if (light === "bright") {
+    return true;
+  } else if (light === "dim") {
+    return vision === "dark" || vision === "low-light";
+  } else if (light === "dark") {
+    return vision === "dark";
+  } else {
+    return false;
+  }
 }
 
 /**
@@ -138,4 +174,14 @@ function canSee(light, vision) {
  */
 function getStrikeDamage(attack, ac, damage) {
   // TODO
+  if (!doesStrikeHit(attack, ac)) {
+    // TODO
+    return 0;
+  }
+
+  if (doesStrikeCrit(attack, ac)) {
+    return damage * 2;
+  } else {
+    return damage;
+  }
 }
